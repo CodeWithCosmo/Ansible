@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+import subprocess
+import json
+
+def get_git_version():
+    try:
+        git_version = subprocess.check_output(['git', '--version'], stderr=subprocess.STDOUT, text=True).strip()
+        return {"git_version": git_version}
+    except subprocess.CalledProcessError:
+        return {"git_version": "Git not installed or an error occurred"}
+
+def get_httpd_version():
+    try:
+        httpd_version = subprocess.check_output(['httpd', '-v'], stderr=subprocess.STDOUT, text=True).strip()
+        return {"httpd_version": httpd_version}
+    except subprocess.CalledProcessError:
+        return {"httpd_version": "Apache HTTP Server not installed or an error occurred"}
+
+if __name__ == "__main__":
+    facts = {}
+    facts.update(get_git_version())
+    facts.update(get_httpd_version())
+    
+    print(json.dumps(facts))

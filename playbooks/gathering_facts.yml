@@ -1,0 +1,7 @@
+--- 
+  - name: Playbook for gathering facts
+    hosts: all
+    user: ec2-user
+    become: yes
+    connection: ssh
+    gather_facts: yes

@@ -1,0 +1,13 @@
+---
+- name: Playbook
+  hosts: all
+  user: ec2-user
+  become: yes
+  connection: ssh
+  vars:
+        pkg: tree
+  tasks:
+      - name: installing latest version of pkg
+        yum:
+          name: '{{pkg}}'
+          state: latest

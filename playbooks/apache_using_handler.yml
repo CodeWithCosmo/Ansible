@@ -1,0 +1,17 @@
+---
+- name: Playbook
+  hosts: all
+  user: ec2-user
+  become: yes
+  connection: ssh
+  tasks:
+      - name: ensure apache is at the latest version
+        yum:
+          name: httpd
+          state: latest
+        notify: start httpd
+  handlers:
+      - name: start httpd    # Now, This is consider as handler, means when httpd successfully instlled only then service will be try to start otherwise not.
+        service:             # But, notify before handler and handler_name must be same.
+          name: httpd
+          state: started
